@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Counter from './counter/Counter';
 
 function App() {
   return (
     <div className="App">
-        테스트
+      <h1>카운터</h1>
+      <Counter />
     </div>
   );
 }
