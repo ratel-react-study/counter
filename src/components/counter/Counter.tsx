@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Box, ButtonGroup, IconButton, Input } from "@chakra-ui/react";
+import { Box, ButtonGroup, Input } from "@chakra-ui/react";
 import { BiMinus, BiPlus } from "react-icons/bi";
+import * as Styles from "./Counter.styles";
 
 type Props = {
   defaultValue?: number;
@@ -8,6 +9,7 @@ type Props = {
   max?: number;
   step?: number;
   precision?: number;
+  disabled?: boolean;
 };
 
 const Counter = ({
@@ -16,6 +18,7 @@ const Counter = ({
   max = 15,
   step = 0.25,
   precision = 2,
+  disabled = false,
 }: Props) => {
   const [count, setCount] = useState<number>(defaultValue);
 
@@ -42,16 +45,22 @@ const Counter = ({
   return (
     <Box>
       <ButtonGroup>
-        <IconButton
+        <Styles.Button
           icon={<BiMinus />}
-          onClick={handleClickDecrease}
-          aria-label={"icon-button_minus"}
+          onClick={(e) => !disabled && handleClickDecrease(e)}
+          aria-label={"Minus Button"}
+          disabled={disabled}
         />
-        <Input readOnly value={convertFixed(count, precision)} />
-        <IconButton
+        <Input
+          readOnly
+          value={convertFixed(count, precision)}
+          disabled={disabled}
+        />
+        <Styles.Button
           icon={<BiPlus />}
-          onClick={handleClickIncrease}
-          aria-label={"icon-button_plus"}
+          onClick={(e) => !disabled && handleClickIncrease(e)}
+          aria-label={"Plus Button"}
+          disabled={disabled}
         />
       </ButtonGroup>
     </Box>
@@ -59,3 +68,4 @@ const Counter = ({
 };
 
 export default Counter;
+
