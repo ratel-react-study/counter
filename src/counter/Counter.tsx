@@ -1,4 +1,6 @@
-import React, { useState } from 'react'; // 훅 사용하기
+// src/components/Counter.tsx
+import React from 'react';
+import { useCounter } from '../hooks/useCounter'; // 커스텀 훅을 가져옴
 
 interface CounterProps {
   step?: number; // 단위 (기본값: 0.25)
@@ -8,32 +10,31 @@ interface CounterProps {
 }
 
 const Counter: React.FC<CounterProps> = ({ step = 0.25, min = -15.00, max = 15.00, decimals = 2 }) => {
-  const [count, setCount] = useState(0);
-
-  // 카운터 값을 증가시키는 함수
-  const increase = () => {
-    if(count + step > max) {
-        alert(`${max}를 넘게 입력할 수 없습니다.`)
-    } else {
-        setCount(prev => Math.min(max, +(prev + step).toFixed(decimals)));    
-    }
-  };
-
-  // 카운터 값을 감소시키는 함수
-  const decrease = () => {
-    if(count - step < min) {
-        alert(`${min}를 넘게 입력할 수 없습니다.`)
-    } else {
-        setCount(prev => Math.max(min, +(prev - step).toFixed(decimals)));
-    }
-  };
+  // 첫 번째 카운터의 상태 및 함수
+  const { count: count1, increase: increase1, decrease: decrease1 } = useCounter(step, min, max, decimals);
+  // 두 번째 카운터의 상태 및 함수
+  const { count: count2, increase: increase2, decrease: decrease2 } = useCounter(step, min, max, decimals);
+  // 세 번째 카운터의 상태 및 함수
+  const { count: count3, increase: increase3, decrease: decrease3 } = useCounter(step, min, max, decimals);
 
   return (
-    <div>
-      <button onClick={decrease}>-</button>
-      <input type="number" value={count.toFixed(decimals)} />
-      <button onClick={increase}>+</button>
-    </div>
+    <>
+      <div>
+        <button onClick={decrease1}>-</button> {/* 첫 번째 카운터 감소 버튼 */}
+        <input type="number" value={count1.toFixed(decimals)} readOnly /> {/* 첫 번째 카운터 값 표시 */}
+        <button onClick={increase1}>+</button> {/* 첫 번째 카운터 증가 버튼 */}
+      </div>
+      <div>
+        <button onClick={decrease2}>-</button> {/* 두 번째 카운터 감소 버튼 */}
+        <input type="number" value={count2.toFixed(decimals)} readOnly /> {/* 두 번째 카운터 값 표시 */}
+        <button onClick={increase2}>+</button> {/* 두 번째 카운터 증가 버튼 */}
+      </div>
+      <div>
+        <button onClick={decrease3}>-</button> {/* 두 번째 카운터 감소 버튼 */}
+        <input type="number" value={count3.toFixed(decimals)} readOnly /> {/* 두 번째 카운터 값 표시 */}
+        <button onClick={increase3}>+</button> {/* 두 번째 카운터 증가 버튼 */}
+      </div>
+    </>
   );
 };
 
