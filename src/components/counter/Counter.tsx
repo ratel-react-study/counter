@@ -1,16 +1,7 @@
-import { useState } from "react";
 import { Box, ButtonGroup, Input } from "@chakra-ui/react";
 import { BiMinus, BiPlus } from "react-icons/bi";
-import * as Styles from "./Counter.styles";
-
-type Props = {
-  defaultValue?: number;
-  min?: number;
-  max?: number;
-  step?: number;
-  precision?: number;
-  disabled?: boolean;
-};
+import * as Styles from "@components/counter/Counter.styles";
+import useCounterHook, { CounterProps } from "@hooks/useCounterHook";
 
 const Counter = ({
   defaultValue = -4,
@@ -19,28 +10,16 @@ const Counter = ({
   step = 0.25,
   precision = 2,
   disabled = false,
-}: Props) => {
-  const [count, setCount] = useState<number>(defaultValue);
-
-  const convertFixed = (value: number, precision: number) => {
-    return value.toFixed(precision);
-  };
-
-  const handleClickIncrease = () => {
-    if (count >= max) {
-      alert("최대값 초과 불가능");
-      return;
-    }
-    setCount(count + step);
-  };
-
-  const handleClickDecrease = () => {
-    if (count <= min) {
-      alert("최소값 이하 불가능");
-      return;
-    }
-    setCount(count - step);
-  };
+}: CounterProps) => {
+const { count, convertFixed, handleClickIncrease, handleClickDecrease } =
+  useCounterHook({
+    defaultValue,
+    min,
+    max,
+    step,
+    precision,
+    disabled,
+  });
 
   return (
     <Box>
@@ -68,4 +47,3 @@ const Counter = ({
 };
 
 export default Counter;
-

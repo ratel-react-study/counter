@@ -1,8 +1,8 @@
 import {Container, Heading, HStack } from '@chakra-ui/react';
-import Counter from './components/counter/Counter';
-import Radio from './components/radio/Radio';
+import Counter from '@components/counter/Counter';
+import Radio from '@components/radio/Radio';
 import { useState } from 'react';
-import RadioGroup from './components/radio/RadioGroup';
+import RadioGroup from '@components/radio/RadioGroup';
 
 function App() {
   const [checked, setChecked] = useState<string>('');
@@ -11,8 +11,6 @@ function App() {
     const {value} = e.target;
     setChecked(value);
   }
-
-  console.log({checked});
 
   return (
     <Container>

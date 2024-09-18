@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { InputHTMLAttributes } from "react";
-import { useRadioContext } from "./RadioGroup";
+import { useRadioContext } from "@components/radio/RadioGroup";
 
 interface RadioInputProps extends InputHTMLAttributes<HTMLInputElement> {
   children: string;
